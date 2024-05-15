@@ -1,0 +1,20 @@
+- hosts: nginx_servers
+  become: yes
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: Configure nginx
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify:
+        - restart nginx
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted

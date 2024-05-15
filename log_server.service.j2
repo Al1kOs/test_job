@@ -1,0 +1,11 @@
+[Unit]
+Description=Log Server
+After=network.target
+
+[Service]
+User=nobody
+ExecStart=/usr/bin/python /usr/local/bin/log_server.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
