@@ -18,6 +18,37 @@
         src: welcome.html
         dest: /var/www/html/welcome.html
 
+<<<<<<< HEAD
+=======
+    - name: Copy log server script to server
+      copy:
+        src: log_server.py
+        dest: /usr/local/bin/log_server.py
+        mode: '0755'
+
+    - name: Ensure Python3 and pip are installed
+      apt:
+        name:
+          - python3
+          - python3-pip
+        state: present
+        update_cache: yes
+
+    - name: Ensure Flask is installed
+      pip:
+        name: flask
+        state: present
+
+    - name: Create systemd service for log server
+      become: yes
+      template:
+        src: log_server.service.j2
+        dest: /etc/systemd/system/log_server.service
+      notify:
+        - reload systemd
+        - start log server
+
+>>>>>>> c58445ddadca72d7fed182f39ff16c8f721ed189
     - name: Create nginx configuration file
       copy:
         dest: /etc/nginx/sites-available/myapp
@@ -44,4 +75,21 @@
     - name: Restart nginx
       service:
         name: nginx
+<<<<<<< HEAD
         state: restarted
+=======
+        state: restarted
+
+  handlers:
+    - name: reload systemd
+      become: yes
+      systemd:
+        daemon_reload: yes
+
+    - name: start log server
+      become: yes
+      systemd:
+        name: log_server
+        state: started
+        enabled: yes
+>>>>>>> c58445ddadca72d7fed182f39ff16c8f721ed189

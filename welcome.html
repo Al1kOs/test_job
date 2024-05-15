@@ -3,10 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Добро пожаловать</title>
+<<<<<<< HEAD
+=======
+    <script>
+        function toggleLogVisibility() {
+            var logContainer = document.getElementById('logContainer');
+            if (logContainer.style.display === 'none') {
+                logContainer.style.display = 'block';
+                fetchLogContent();
+            } else {
+                logContainer.style.display = 'none';
+            }
+        }
+
+        function fetchLogContent() {
+            fetch('/get-log')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('logContent').textContent = data;
+            })
+            .catch(error => {
+                console.error('Error fetching log:', error);
+                document.getElementById('logContent').textContent = 'Error loading log';
+            });
+        }
+    </script>
+>>>>>>> c58445ddadca72d7fed182f39ff16c8f721ed189
 </head>
 <body>
     <h1>Добро пожаловать на тестовое задание</h1>
     <p>Это всего лишь тест.</p>
+<<<<<<< HEAD
+=======
+    <button onclick="toggleLogVisibility()">Показать/Скрыть лог</button>
+    <div id="logContainer" style="display:none;">
+        <pre id="logContent"></pre>
+>>>>>>> c58445ddadca72d7fed182f39ff16c8f721ed189
     </div>
 </body>
 </html>
